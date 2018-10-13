@@ -27,9 +27,9 @@ public class DBUserImpl implements IUserDAO {
 		rs = getUserFromDB(login, password);
 		try {
 			if (rs.next()) {
-				String cmpName = rs.getString(ConstantsSQL.LOGIN_IND);
-				String cmpPassword = rs.getString(ConstantsSQL.PASSWORD_IND);
-				boolean cmpIsAdmin = rs.getBoolean(ConstantsSQL.IS_ADMIN_IND);
+				String cmpName = rs.getString(ConstantsSQL.SELECT_LOGIN_LOGIN_IND);
+				String cmpPassword = rs.getString(ConstantsSQL.SELECT_LOGIN_PASSWORD_IND);
+				boolean cmpIsAdmin = rs.getBoolean(ConstantsSQL.SELECT_LOGIN_IS_ADMIN_IND);
 				if (cmpIsAdmin) {
 					role = Role.getRole(login, password, cmpName, cmpPassword, Role.ADMIN);
 				} else {
@@ -44,14 +44,13 @@ public class DBUserImpl implements IUserDAO {
 			ConnectToDB.close(cn, rs, st, ps);
 		}
 		return null;
-
 	}
 
 	private ResultSet getUserFromDB(String login, String password) {
 		try {
 			st = cn.createStatement();
 			ps = cn.prepareStatement(ConstantsSQL.SELECT_LOGIN);
-			ps.setString(ConstantsSQL.LOGIN_IND, login);
+			ps.setString(ConstantsSQL.SELECT_LOGIN_LOGIN_IND, login);
 			rs = ps.executeQuery();
 			return rs;
 		} catch (SQLException e) {
@@ -65,9 +64,9 @@ public class DBUserImpl implements IUserDAO {
 		cn = ConnectToDB.getConnection();
 		try {
 			ps = cn.prepareStatement(ConstantsSQL.INSERT_USERS);
-			ps.setString(ConstantsSQL.LOGIN_IND, login);
-			ps.setString(ConstantsSQL.PASSWORD_IND, password);
-			ps.setBoolean(ConstantsSQL.IS_ADMIN_IND, false);
+			ps.setString(ConstantsSQL.SELECT_LOGIN_LOGIN_IND, login);
+			ps.setString(ConstantsSQL.SELECT_LOGIN_PASSWORD_IND, password);
+			ps.setBoolean(ConstantsSQL.SELECT_LOGIN_IS_ADMIN_IND, false);
 			synchronized (new String()) {
 				rs = getUserFromDB(login, password);
 				if (!rs.next()) {
@@ -85,7 +84,4 @@ public class DBUserImpl implements IUserDAO {
 		}
 		return null;
 	}
-
-	
-
 }

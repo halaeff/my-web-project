@@ -10,11 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LogOutController extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session != null) {
+		if (session != null)
 			session.invalidate();
-		}
+		
+
+
+	
 		request.getRequestDispatcher(Constants.JUMP_INDEX).forward(request, response);
 	}
 

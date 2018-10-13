@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +15,11 @@ import by.gsu.epamlab.interfaces.BaseController;
 import by.gsu.epamlab.interfaces.IUserDAO;
 
 public class LoginController extends BaseController {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -42,6 +46,8 @@ public class LoginController extends BaseController {
 		User user = userDAO.getUser(login, password);
 		if (user.getRole() != Role.FAKER) {
 			HttpSession session = request.getSession();
+
+	
 			session.setAttribute(Constants.KEY_USER, user);
 			forward(Constants.JUMP_TASK, request, response);
 		} else {

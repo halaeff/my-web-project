@@ -10,6 +10,12 @@ public class Constants {
 	public static final String KEY_TASK = "tasks";
 	public static final String KEY_TASKS_TYPE = "tasksType";
 	public static final String KEY_TASKS_DATE = "tasksDate";
+
+	public static final String KEY_TASK_DATE = "taskDate";
+	public static final String KEY_TASK_NAME = "taskName";
+	public static final String KEY_TASK_ID = "taskId";
+	public static final String KEY_TASK_DATE_SQL = "taskDateSQL";
+	public static final String KEY_TASK_ACTION = "taskAction";
 	public static final String KEY_TODAY = "today";
 	public static final String KEY_DAO = "db";
 	

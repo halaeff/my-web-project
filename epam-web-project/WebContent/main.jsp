@@ -8,59 +8,34 @@
 
 <link rel="stylesheet" href="css/style.css">
 
-<script Language="JavaScript">
-	function sendForm(taskType) {
-		if(taskType=='Someday'){
-			document.formTaskType.currDate.value = prompt('Input the date YYYY-MM-DD', getCurrDate())
-		}else{
-			document.formTaskType.currDate.value = getCurrDate();
-		}
-		document.formTaskType.tasksType.value = taskType;
-		document.formTaskType.submit();
-	}
-	function getCurrDate() {
-		var currDate = new Date();
-		var dd = currDate.getDate();
-		var mm = currDate.getMonth() + 1; //January is 0 but in SQL is 1
-		var yyyy = currDate.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-		currDate = yyyy + '-' + mm + '-' + dd;
-		return currDate;
-	}
+<script src="scripts/javascript.js">
+	
 </script>
 </head>
 
 <body>
-
-
 	<div class="body-top">
+
 		<ul>
 			<li>User: ${user.name}</li>
 			<li>Role: ${user.role}</li>
-
 			<c:if test="${user.role eq 'ADMIN'}">
 				<li><h4>my respect!</h4></li>
 			</c:if>
 
 			<li><form name="formOut" ACTION="logout" method="post">
 					<input class="button-logout" type="submit" value="Logout" />
-
 				</form></li>
 		</ul>
 	</div>
 
 
+	<div class="body-tasks" id="body-tasks">
+		<a href="JavaScript:hideAndShowDiv('body-tasks','create-task-form')">Create
+			task</a>
+		<div class="body-tasks-type" id="body-tasks-type">
 
-
-	<div class="body-tasks">
-		<p>task here</p>
-		<div class="body-tasks-type">
-			<form name="formTaskType" ACTION="task" method="post">	
+			<form name="formTaskType" ACTION="task" method="post">
 				<ul>
 					<li><a href="JavaScript:sendForm('Today')">Today</a></li>
 					<li><a href="JavaScript:sendForm('Tomorrow')">Tomorrow</a></li>
@@ -72,16 +47,87 @@
 					id="currDate" value="" name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
 			</form>
 		</div>
-
 		<table>
+			<tr>
+				<td>Task name:</td>
+				<td>Task date:</td>
+			</tr>
 			<c:forEach var="task" items="${tasks}" varStatus="status">
 				<tr>
-					<td>Task name: ${task.name}</td>
-					<td>Task date: ${task.date}</td>
-					<td><a href="JavaScript:editTask(${task.id})">edit task</a> </td>
+
+					<td>${task.name}</td>
+					<td>${task.date}</td>
+					<td width=75px align="right">
+						<form name="editTask${task.id }" method="POST" action="task">
+							<input type="hidden" name="taskId" value=${task.id }>
+							<div id="hiddenElements" hidden="true">
+								<input type="text" name="taskName" value=${task.name }>
+								<input type="text" name="taskDate" value=${task.date }>
+							</div>
+
+						</form> <a
+						href="JavaScript:editTask('${task.id }','${task.name }','${task.date }')">Edit</a>
+					</td>
+					<td><form name="deleteTask${task.id }"
+							id="deleteTask${task.id }" method="POST" action="task">
+							<input name="taskAction" type="hidden" value="delete"> <input
+								type="hidden" name="taskId" value=${task.id }><input
+								type="hidden" id="currDate" value=""
+								name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
+						</form> <a href="JavaScript:deleteTask('deleteTask${task.id }')">Delete</a></td>
+
+					<td><form name="completeTask${task.id }"
+							id="completeTask${task.id }" method="POST" action="task">
+							<input name="taskAction" type="hidden" value="complete">
+							<input type="hidden" name="taskId" value=${task.id }><input
+								type="hidden" id="currDate" value=""
+								name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
+						</form> <a href="JavaScript:completeTask('completeTask${task.id }')">Complete</a></td>
 				</tr>
 			</c:forEach>
 		</table>
+	</div>
+	<div id="edit-task-form" hidden="true">
+		<a href="JavaScript:hideAndShowDiv('edit-task-form','body-tasks')">back</a>
+		<form name="editTaskForm" action="task" method="post">
+			<input name="taskAction" type="hidden" value="edit">
+			<p>edit task edit task</p>
+			<table>
+				<tr>
+					<th>Name of task</th>
+					<th>Date of task</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="taskName"></td>
+					<td><input type="text" name="taskDate" id="taskDate"></td>
+				</tr>
+			</table>
+			<input type="hidden" name="taskId" value=""> <input
+				type="hidden" id="currDate" value=""
+				name=<%=ConstantsJSP.KEY_TASKS_DATE%>> <a
+				href="JavaScript:createTask()">Edit</a> <input type="submit"
+				value="ok!">
+		</form>
+	</div>
+
+	<div id="create-task-form" hidden="true">
+		<a href="JavaScript:hideAndShowDiv('create-task-form','body-tasks')">back</a>
+		<form name="createTaskForm" action="task" method="post">
+			<input name="taskAction" type="hidden" value="create">
+			<table>
+				<tr>
+					<th>Name of task</th>
+					<th>Date of task</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="taskName"></td>
+					<td><input type="date" name="taskDate" id="taskDate"></td>
+				</tr>
+			</table>
+			<input type="hidden" id="currDate" value=""
+				name=<%=ConstantsJSP.KEY_TASKS_DATE%>> <a
+				href="JavaScript:createTask()">Create</a>
+		</form>
 	</div>
 	<br>
 
