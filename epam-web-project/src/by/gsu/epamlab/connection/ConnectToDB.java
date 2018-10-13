@@ -23,6 +23,7 @@ public class ConnectToDB {
 			Class.forName(CLASS_NAME);
 			cn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
 		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		return cn;

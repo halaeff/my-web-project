@@ -8,59 +8,32 @@
 
 <link rel="stylesheet" href="css/style.css">
 
-<script Language="JavaScript">
-	function sendForm(taskType) {
-		if(taskType=='Someday'){
-			document.formTaskType.currDate.value = prompt('Input the date YYYY-MM-DD', getCurrDate())
-		}else{
-			document.formTaskType.currDate.value = getCurrDate();
-		}
-		document.formTaskType.tasksType.value = taskType;
-		document.formTaskType.submit();
-	}
-	function getCurrDate() {
-		var currDate = new Date();
-		var dd = currDate.getDate();
-		var mm = currDate.getMonth() + 1; //January is 0 but in SQL is 1
-		var yyyy = currDate.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-		currDate = yyyy + '-' + mm + '-' + dd;
-		return currDate;
-	}
+<script src="scripts/javascript.js">
 </script>
 </head>
 
 <body>
-
-
 	<div class="body-top">
+
 		<ul>
 			<li>User: ${user.name}</li>
 			<li>Role: ${user.role}</li>
-
 			<c:if test="${user.role eq 'ADMIN'}">
 				<li><h4>my respect!</h4></li>
 			</c:if>
 
 			<li><form name="formOut" ACTION="logout" method="post">
 					<input class="button-logout" type="submit" value="Logout" />
-
 				</form></li>
 		</ul>
 	</div>
 
 
-
-
-	<div class="body-tasks">
-		<p>task here</p>
-		<div class="body-tasks-type">
-			<form name="formTaskType" ACTION="task" method="post">	
+	<div class="body-tasks" id="body-tasks">
+		<div class="body-tasks-type" id="body-tasks-type">
+			<a href="JavaScript:hideAndShowDiv('body-tasks','create-task-form')">Create
+				task</a>
+			<form name="formTaskType" ACTION="task" method="post">
 				<ul>
 					<li><a href="JavaScript:sendForm('Today')">Today</a></li>
 					<li><a href="JavaScript:sendForm('Tomorrow')">Tomorrow</a></li>
@@ -72,16 +45,39 @@
 					id="currDate" value="" name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
 			</form>
 		</div>
-
 		<table>
+			<tr>
+				<td>Task name:</td>
+				<td>Task date:</td>
+			</tr>
 			<c:forEach var="task" items="${tasks}" varStatus="status">
 				<tr>
-					<td>Task name: ${task.name}</td>
-					<td>Task date: ${task.date}</td>
-					<td><a href="JavaScript:editTask(${task.id})">edit task</a> </td>
+					<td>${task.name}</td>
+					<td>${task.date}</td>
+					<td width=75px align="right"><a
+						href="JavaScript:editTask('edit')">Edit</a></td>
+					<td><a href="JavaScript:editTask('delete')">Delete</a></td>
+					<td><a href="JavaScript:editTask('complete')">Complete</a></td>
 				</tr>
 			</c:forEach>
 		</table>
+	</div>
+	<div id="create-task-form" hidden>
+		<a href="JavaScript:hideAndShowDiv('create-task-form','body-tasks')">back</a>
+		<form name="createTaskForm" action="create" method="post">
+			<table>
+				<tr>
+					<th>Name of task</th>
+					<th>Date of task</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="nameOfTask"></td>
+					<td><input type="date" name="dateOfTask" id="dateOfTask"></td>
+				</tr>
+			</table>
+	<input type="hidden" name="dateSQL">
+			<a href="JavaScript:createTask()">Create</a>
+		</form>
 	</div>
 	<br>
 

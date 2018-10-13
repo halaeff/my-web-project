@@ -30,20 +30,23 @@ public class TaskController extends BaseController {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// User user = (User) request.getAttribute(Constants.KEY_USER);
+		// String userLogin = null;
+		// String userRole = null;
+
 		HttpSession session = request.getSession();
-		
 		User user = (User) session.getAttribute(Constants.KEY_USER);
-		System.out.println("User " + user.getName());	
-		
+		System.out.println("user without getSession" + request.getAttribute(Constants.KEY_USER));
+		System.out.println("user: " + user.getName());
 		String tasksType = null;
-		System.out.println("taskType: " + request.getParameter(Constants.KEY_TASKS_TYPE));
 		if (request.getParameter(Constants.KEY_TASKS_TYPE) == null) {
 			tasksType = Constants.KEY_TODAY;
 		} else {
 			tasksType = request.getParameter(Constants.KEY_TASKS_TYPE);
 		}
+		System.out.println(request.getParameter(ConstantsJSP.KEY_TASKS_DATE));
 		Date date = Date.valueOf(request.getParameter(ConstantsJSP.KEY_TASKS_DATE));
-		System.out.println(date);
+		System.out.println("Date: " + date);
 		ITaskDAO taskDAO = TaskFactory.getClassFromFactory();
 
 		List<Task> tasks = taskDAO.getTasks(user.getName(), tasksType, date);

@@ -24,7 +24,7 @@
 			<input type="text" placeholder="Login" class="input-style"		name=<%=ConstantsJSP.KEY_LOGIN%>><br> 
 			<input type="password" placeholder="Password" class="input-style"	name=<%=ConstantsJSP.KEY_PASSWORD%> value=""><br> 
 			<input type="submit" value="Login" class="input-style"> 
-			<input type="text" id="currDate" value=""	name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
+			<input type="hidden" id="currDate" value=""	name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
 		</form>
 
 

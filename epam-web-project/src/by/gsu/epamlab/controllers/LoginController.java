@@ -41,8 +41,15 @@ public class LoginController extends BaseController {
 		IUserDAO userDAO = UserFactory.getClassFromFactory();
 		User user = userDAO.getUser(login, password);
 		if (user.getRole() != Role.FAKER) {
+			// request.setAttribute(Constants.KEY_USER, user);
 			HttpSession session = request.getSession();
+			// session.setAttribute(Constants.KEY_USER, user);
+			// request.getSession().set(Constants.KEY_TASKS_TYPE, Constants.KEY_TODAY);
+
+	
 			session.setAttribute(Constants.KEY_USER, user);
+			
+           // request.setAttribute(Constants.KEY_USER, login);
 			forward(Constants.JUMP_TASK, request, response);
 		} else {
 			forwardError(Constants.ERROR_PASSWORD, request, response);
