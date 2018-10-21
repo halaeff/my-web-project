@@ -30,7 +30,6 @@ function hideAndShowDiv(hideDiv, showDiv) {
 	document.getElementById(hideDiv).hidden = true;
 	document.getElementById(showDiv).hidden = false;
 }
-<<<<<<< HEAD
 function createTask() {
 	hideAndShowDiv('body-tasks', 'create-task-form');
 	var date = new Date(document.createTaskForm.taskDate.value);
@@ -57,11 +56,3 @@ function completeTask(nameForm){
 		document.getElementById(nameForm).submit();
 	}
 }
-=======
-function createTask(){
-	var date = document.createTaskForm.dateOfTask.value;
-	alert(date);
-	document.createTaskForm.dateSQL.value=date;
-	document.createTaskForm.submit();
-}
->>>>>>> branch 'master' of https://github.com/halaeff/my-web-project.git
