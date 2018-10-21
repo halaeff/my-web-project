@@ -9,7 +9,10 @@
 <link rel="stylesheet" href="css/style.css">
 
 <script src="scripts/javascript.js">
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/halaeff/my-web-project.git
 </script>
 </head>
 
@@ -31,10 +34,16 @@
 
 
 	<div class="body-tasks" id="body-tasks">
+<<<<<<< HEAD
 		<a href="JavaScript:hideAndShowDiv('body-tasks','create-task-form')">Create
 			task</a>
 		<div class="body-tasks-type" id="body-tasks-type">
 
+=======
+		<div class="body-tasks-type" id="body-tasks-type">
+			<a href="JavaScript:hideAndShowDiv('body-tasks','create-task-form')">Create
+				task</a>
+>>>>>>> branch 'master' of https://github.com/halaeff/my-web-project.git
 			<form name="formTaskType" ACTION="task" method="post">
 				<ul>
 					<li><a href="JavaScript:sendForm('Today')">Today</a></li>
@@ -54,6 +63,7 @@
 			</tr>
 			<c:forEach var="task" items="${tasks}" varStatus="status">
 				<tr>
+<<<<<<< HEAD
 
 					<td>${task.name}</td>
 					<td>${task.date}</td>
@@ -83,10 +93,19 @@
 								type="hidden" id="currDate" value=""
 								name=<%=ConstantsJSP.KEY_TASKS_DATE%>>
 						</form> <a href="JavaScript:completeTask('completeTask${task.id }')">Complete</a></td>
+=======
+					<td>${task.name}</td>
+					<td>${task.date}</td>
+					<td width=75px align="right"><a
+						href="JavaScript:editTask('edit')">Edit</a></td>
+					<td><a href="JavaScript:editTask('delete')">Delete</a></td>
+					<td><a href="JavaScript:editTask('complete')">Complete</a></td>
+>>>>>>> branch 'master' of https://github.com/halaeff/my-web-project.git
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
+<<<<<<< HEAD
 	<div id="edit-task-form" hidden="true">
 		<a href="JavaScript:hideAndShowDiv('edit-task-form','body-tasks')">back</a>
 		<form name="editTaskForm" action="task" method="post">
@@ -127,6 +146,23 @@
 			<input type="hidden" id="currDate" value=""
 				name=<%=ConstantsJSP.KEY_TASKS_DATE%>> <a
 				href="JavaScript:createTask()">Create</a>
+=======
+	<div id="create-task-form" hidden>
+		<a href="JavaScript:hideAndShowDiv('create-task-form','body-tasks')">back</a>
+		<form name="createTaskForm" action="create" method="post">
+			<table>
+				<tr>
+					<th>Name of task</th>
+					<th>Date of task</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="nameOfTask"></td>
+					<td><input type="date" name="dateOfTask" id="dateOfTask"></td>
+				</tr>
+			</table>
+	<input type="hidden" name="dateSQL">
+			<a href="JavaScript:createTask()">Create</a>
+>>>>>>> branch 'master' of https://github.com/halaeff/my-web-project.git
 		</form>
 	</div>
 	<br>
